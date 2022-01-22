@@ -5,7 +5,7 @@ export default {
   setup() {
     const text = ref('JsBarcode')
     const lineColor = ref('#000000')
-    const bgckgroundColor = ref('#fff')
+    const bgckgroundColor = ref('#ffffff')
 
     const defaultSetting = reactive({
       format: "CODE128",
