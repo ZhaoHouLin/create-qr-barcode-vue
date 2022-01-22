@@ -31,12 +31,12 @@ export default {
 
     const changeLineColor = () => {
       defaultSetting.lineColor = lineColor.value
-      JsBarcode("#barcode", text.value, defaultSetting);
+      createBarcode()
     }
 
     const changeBgckgroundColor = () => {
       defaultSetting.background = bgckgroundColor.value
-      JsBarcode("#barcode", text.value, defaultSetting);
+      createBarcode()
     }
 
 

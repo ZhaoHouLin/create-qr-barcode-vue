@@ -40,20 +40,12 @@ export default {
 
     const changeCodeColor = () => {
       defaultSetting.color.dark = codeColor.value
-      QRCode.toCanvas(url.value, defaultSetting,  (err,canvas) => {
-        if (err) throw err
-        content.value.innerHTML = ""
-        content.value.appendChild(canvas)
-      })
+      createQRCode()
     }
 
     const changeBgckgroundColor = () => {
       defaultSetting.color.light = bgckgroundColor.value
-      QRCode.toCanvas(url.value, defaultSetting,  (err,canvas) => {
-        if (err) throw err
-        content.value.innerHTML = ""
-        content.value.appendChild(canvas)
-      })
+      createQRCode()
     }
 
 
