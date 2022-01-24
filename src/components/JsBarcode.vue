@@ -11,11 +11,22 @@ export default {
     const barMargin = ref(20)
 
     const formatCode = reactive([
-      { "CODE128 Auto": "CODE128" },
-      { "CODE128 A": "CODE128A" },
-      { "CODE128 B": "CODE128B" },
-      { "CODE128 C": "CODE128C" },
-      { "CODE39": "CODE39" }
+      { CODE128 : { option: "CODE128 auto",example: "Example 1234" } },
+      { CODE128A : { option: "CODE128 A",example: "EXAMPLE" } },
+      { CODE128B : { option: "CODE128 B",example: "Example text" } },
+      { CODE128C : { option: "CODE128 C",example: "12345678" } },
+      { EAN13 : { option: "EAN13", example: "1234567890128" } },
+      { EAN8 : { option: "EAN8", example: "12345670" } },
+      { UPC : { option: "UPC", example: "123456789999" } },
+      { CODE39 : { option: "CODE39", example: "EXAMPLE TEXT" } },
+      { ITF14 : { option: "ITF14", example: "10012345000017" } },
+      { ITF : { option: "ITF", example: "123456" } },
+      { MSI : { option: "MSI", example: "123456" } },
+      { MSI10 : { option: "MSI10", example: "123456" } },
+      { MSI11 : { option: "MSI11", example: "123456"} },
+      { MSI1010 : { option: "MSI1010", example: "123456" } },
+      { MSI1110 : { option: "MSI1110", example: "123456" } },
+      { pharmacode : { option: "Pharmacode", example: "1234" } }
     ])
 
     const selectCode = ref("CODE128")
@@ -59,9 +70,7 @@ export default {
       createBarcode()
     }
     const changeBarMargin = () => {
-      console.log(barMargin.value);
       defaultSetting.margin = parseInt(barMargin.value)
-      // console.log(defaultSetting.margin);
       createBarcode()
     }
 
@@ -70,7 +79,9 @@ export default {
     })
 
     watch(selectCode,(code)=> {
-      defaultSetting.format = code
+      console.log(Object.keys(code)[0]);
+      text.value = Object.values(code)[0].example
+      defaultSetting.format = Object.keys(code)[0]
       createBarcode()
     })
 
@@ -101,7 +112,7 @@ export default {
   .bar-code-format
     input.text-center.border(v-model='text' @input='createBarcode')
     select(v-model='selectCode' )
-      option(v-for='item in formatCode' :value='Object.values(item)[0]') {{ Object.keys(item)[0] }}
+      option(v-for='item in formatCode' :value='item') {{ Object.values(item)[0].option }}
   .bar-width.flex
     h3 Bar Width 
     input(type='range' class='' min="1" max="4" v-model='barWidth' @input='changeBarWidth')
