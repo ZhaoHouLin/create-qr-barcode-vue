@@ -8,6 +8,7 @@ export default {
     const bgckgroundColor = ref('#ffffff')
     const barWidth = ref(2)
     const barHeight = ref(50)
+    const barMargin = ref(20)
 
     const formatCode = reactive([
       { "CODE128 Auto": "CODE128" },
@@ -32,7 +33,7 @@ export default {
       fontSize: 20,
       background: "#fff",
       lineColor: "#000000",
-      margin: 20,
+      margin: barMargin.value
     })
 
     
@@ -57,8 +58,11 @@ export default {
       defaultSetting.height = barHeight.value
       createBarcode()
     }
-    const changeFormat = () => {
-      
+    const changeBarMargin = () => {
+      console.log(barMargin.value);
+      defaultSetting.margin = parseInt(barMargin.value)
+      // console.log(defaultSetting.margin);
+      createBarcode()
     }
 
     onMounted(()=> {
@@ -82,7 +86,9 @@ export default {
       barHeight,
       changeBarHeight,
       formatCode,
-      selectCode
+      selectCode,
+      barMargin,
+      changeBarMargin
     }
   },
 }
@@ -104,6 +110,10 @@ export default {
     h3 Bar Height 
     input(type='range' class='' min="20" max="100" v-model='barHeight' @input='changeBarHeight')
     h3 {{barHeight}}
+  .bar-margin.flex
+    h3 Bar Margin 
+    input(type='range' class='' min="0" max="30" step="1"  v-model='barMargin' @input='changeBarMargin')
+    h3 {{barMargin}}
   .line-color.flex
     h3 line color
     input(type='color' v-model='lineColor' @input='changeLineColor' )
@@ -115,17 +125,5 @@ export default {
 </template>
 
 <style lang="stylus" scoped>
-// .js-barcode
-//   display flex
-//   justify-content center
-//   align-items center
-//   flex-direction column
 
-// #barcode
-//   border 1px solid #000  
-//   margin 8px
-
-// .line-color,.bgckground-color
-//   display flex
-  // border 1px solid #000
 </style>
