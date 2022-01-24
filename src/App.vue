@@ -16,8 +16,9 @@ export default {
 </script>
 
 <template lang="pug">
-JsBarcode  
-QRCode
+.card
+  JsBarcode  
+  QRCode
 </template>
 
 <style lang="stylus">
@@ -34,4 +35,12 @@ QRCode
   justify-content center
   align-items center
   flex-direction column
+
+.card
+  padding 12px
+  // height 80vh
+  box-shadow 0.2rem 0.2rem 0.5rem 0.2rem #222
+  border-radius 12px
+  display flex
+  justify-content center
 </style>
