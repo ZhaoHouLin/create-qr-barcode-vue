@@ -1,7 +1,12 @@
 <script>
 import Jsbarcode from "jsbarcode"
 import { computed, onMounted, reactive, ref, watch } from '@vue/runtime-core'
+import ToggleSwitch from "./ToggleSwitch.vue"
+
 export default {
+  components: {
+    ToggleSwitch
+  },
   setup() {
     const text = ref('zz barcode')
     const lineColor = ref('#000000')
@@ -152,7 +157,7 @@ export default {
   .show-text.flex
     h3 Show text 
     button.border(@click='changeShowText') zz 
-    input(type="checkbox" class="checked:bg-green-500")
+    ToggleSwitch
     //- h3(v-show='showText') Show
     //- h3(v-show='!showText') Hide
 </template>
