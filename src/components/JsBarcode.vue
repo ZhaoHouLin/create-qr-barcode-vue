@@ -154,12 +154,11 @@ export default {
   .bgckground-color.flex
     h3 bgckground color
     input(type='color' v-model='bgckgroundColor' @input='changeBgckgroundColor' )
-  .show-text.flex
+  .show-text.flex.items-center
     h3 Show text 
-    button.border(@click='changeShowText') zz 
-    ToggleSwitch
-    //- h3(v-show='showText') Show
-    //- h3(v-show='!showText') Hide
+    ToggleSwitch(:bool='showText' @CallBack='changeShowText')
+    h3(v-show='showText') Show
+    h3(v-show='!showText') Hide
 </template>
 
 <style lang="stylus" scoped>
