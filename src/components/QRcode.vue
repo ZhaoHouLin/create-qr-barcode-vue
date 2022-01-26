@@ -77,11 +77,11 @@ export default {
 .qrcode
   #container(ref='content')
   input(v-model='url' @input='createQRCode')
-  .code-color
-    h3 code color
+  .qr-color
+    h3 QR color
     input(type='color' v-model='codeColor' @input='changeCodeColor' )
   .bgckground-color
-    h3 bgckground color
+    h3 Bgckground
     input(type='color' v-model='bgckgroundColor' @input='changeBgckgroundColor' )
 
 </template>
@@ -97,7 +97,7 @@ export default {
   // border 1px solid #000  
   margin 8px
 
-.code-color,.bgckground-color
+.qr-color,.bgckground-color
   display flex
   // border 1px solid #000  
 
