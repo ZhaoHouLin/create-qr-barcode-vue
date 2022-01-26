@@ -8,11 +8,12 @@ export default {
     const url = ref('https://github.com/ZhaoHouLin')
     const codeColor = ref("#000000")
     const bgckgroundColor = ref("#ffffff")
+    const qrMargin = ref(2)
 
     const defaultSetting = reactive({
       errorCorrectionLevel: 'H',
       // version: 4
-      margin: 1,
+      margin: qrMargin.value,
       color: {
         dark: codeColor.value,
         light: bgckgroundColor.value
@@ -37,11 +38,12 @@ export default {
       })  
     }
 
-
+    const changeQRMargin = () => {
+      defaultSetting.margin = parseInt(qrMargin.value)
+    }
     const changeCodeColor = () => {
       defaultSetting.color.dark = codeColor.value
     }
-
     const changeBgckgroundColor = () => {
       defaultSetting.color.light = bgckgroundColor.value  
     }
@@ -63,10 +65,9 @@ export default {
       createQRCode,
       content,
       url,
-      codeColor,
-      changeCodeColor,
-      bgckgroundColor,
-      changeBgckgroundColor
+      codeColor, changeCodeColor,
+      bgckgroundColor, changeBgckgroundColor,
+      qrMargin, changeQRMargin
     }
   },
 }
@@ -75,14 +76,17 @@ export default {
 
 <template lang="pug">
 .qrcode
-  #container(ref='content')
+  #container.border(ref='content')
   input(v-model='url' @input='createQRCode')
   .qr-color
-    h3 QR color
+    h3 QR Color
     input(type='color' v-model='codeColor' @input='changeCodeColor' )
   .bgckground-color
     h3 Bgckground
     input(type='color' v-model='bgckgroundColor' @input='changeBgckgroundColor' )
+  .qr-margin.flex 
+    h3 QR Margin
+    input(type="range" min="0" max="6" step="1" v-model='qrMargin' @input='changeQRMargin' )
 
 </template>
 
