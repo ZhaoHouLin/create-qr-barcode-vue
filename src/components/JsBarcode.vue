@@ -57,8 +57,8 @@ export default {
       textPosition: "bottom",
       textMargin: textMargin.value,
       fontSize: fontSize.value,
-      background: "#fff",
-      lineColor: "#000000",
+      background: bgckgroundColor.value,
+      lineColor: lineColor.value,
       margin: barMargin.value
     })
 
@@ -155,12 +155,14 @@ export default {
     h3 Bar Margin 
     input(type='range' class='' min="0" max="30" step="1"  v-model='barMargin' @input='changeBarMargin')
     h3 {{barMargin}}
-  .line-color.flex
-    h3 line color
+  .line-color.flex.items-center.justify-center
+    h3 Line Color
     input(type='color' v-model='lineColor' @input='changeLineColor' )
-  .bgckground-color.flex
-    h3 bgckground color
+    input( class='w-20' v-model='lineColor' @input='changeLineColor' )
+  .bgckground-color.flex.items-center.justify-center
+    h3 Bgckground
     input(type='color' v-model='bgckgroundColor' @input='changeBgckgroundColor' )
+    input( class='w-20' v-model='bgckgroundColor' @input='changeBgckgroundColor')
   .show-text.flex.items-center
     h3 Show text 
     ToggleSwitch( @CallBack='changeShowText' )
