@@ -16,6 +16,13 @@ export default {
     const barMargin = ref(20)
     const showText = ref(true)
 
+    const radioPicked = ref('center')
+    const alignRadio = ref([
+      { val: "left" , id: "left"},
+      { val: "center" , id: "center"},
+      { val: "right" , id: "right"},
+    ])
+
     const formatCode = reactive([
       { CODE128 : { option: "CODE128 auto",example: "Example 1234" } },
       { CODE128A : { option: "CODE128 A",example: "EXAMPLE" } },
@@ -83,6 +90,11 @@ export default {
       JsBarcode("#barcode", text.value, defaultSetting);
     })
 
+    watch(radioPicked, (val)=> {
+      defaultSetting.textAlign = val
+      createBarcode()
+    })  
+
     watch(defaultSetting, ()=> {
       createBarcode()
     })  
@@ -104,7 +116,8 @@ export default {
       formatCode,
       selectCode,
       barMargin, changeBarMargin,
-      showText, changeShowText
+      showText, changeShowText,
+      radioPicked,alignRadio
     }
   },
 }
@@ -143,6 +156,11 @@ export default {
     ToggleSwitch( @CallBack='changeShowText' )
     h3(v-show='showText') Show
     h3(v-show='!showText') Hide
+  .text-align.flex.items-center
+    h3 Text Align 
+    .radio.flex.items-center(v-for="item in alignRadio")
+      input(type="radio" :id='item.id' :value='item.val' v-model='radioPicked')
+      label(:for='item.id') {{item.id}}
 </template>
 
 <style lang="stylus" scoped>
