@@ -16,6 +16,7 @@ export default {
     const barMargin = ref(20)
     const showText = ref(true)
     const fontSize = ref(20)
+    const textMargin = ref(0)
 
     const radioPicked = ref('center')
     const alignRadio = ref([
@@ -54,7 +55,7 @@ export default {
       font: "monospace",
       textAlign: "center",
       textPosition: "bottom",
-      textMargin: "2",
+      textMargin: textMargin.value,
       fontSize: fontSize.value,
       background: "#fff",
       lineColor: "#000000",
@@ -89,6 +90,9 @@ export default {
     const changeFontSize = () => {
       defaultSetting.fontSize = fontSize.value
     }
+    const changeTextMargin = () => {
+      defaultSetting.textMargin = textMargin.value
+    }
 
     onMounted(()=> {
       JsBarcode("#barcode", text.value, defaultSetting);
@@ -121,8 +125,9 @@ export default {
       selectCode,
       barMargin, changeBarMargin,
       showText, changeShowText,
-      radioPicked,alignRadio,
-      fontSize, changeFontSize
+      radioPicked, alignRadio,
+      fontSize, changeFontSize,
+      textMargin, changeTextMargin
     }
   },
 }
@@ -170,6 +175,10 @@ export default {
     h3 Font Size
     input(type="range" min="8" max="36" v-model='fontSize' @input="changeFontSize")
     h3 {{fontSize}}
+  .text-margin.flex.items-center
+    h3 Text Margin
+    input(type="range" min="-20" max="20" v-model='textMargin' @input="changeTextMargin")
+    h3 {{textMargin}}  
 </template>
 
 <style lang="stylus" scoped>
