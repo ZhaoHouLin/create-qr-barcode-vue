@@ -1,6 +1,6 @@
 <script>
 import QRCode from "qrcode"
-import { onMounted, reactive, ref } from '@vue/runtime-core'
+import { onMounted, reactive, ref, watch } from '@vue/runtime-core'
 export default {
   setup() {
 
@@ -40,13 +40,15 @@ export default {
 
     const changeCodeColor = () => {
       defaultSetting.color.dark = codeColor.value
-      createQRCode()
     }
 
     const changeBgckgroundColor = () => {
-      defaultSetting.color.light = bgckgroundColor.value
-      createQRCode()
+      defaultSetting.color.light = bgckgroundColor.value  
     }
+
+    watch(defaultSetting, ()=> {
+      createQRCode()
+    })
 
 
     onMounted(()=> {
