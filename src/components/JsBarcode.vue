@@ -1,6 +1,6 @@
 <script>
 import Jsbarcode from "jsbarcode"
-import { computed, onMounted, reactive, ref, watch } from '@vue/runtime-core'
+import { onMounted, reactive, ref, watch } from '@vue/runtime-core'
 import ToggleSwitch from "./ToggleSwitch.vue"
 
 export default {
@@ -74,9 +74,8 @@ export default {
     const changeBarMargin = () => {
       defaultSetting.margin = parseInt(barMargin.value)
     }
-
-    const changeShowText = () => {
-      showText.value = !showText.value
+    const changeShowText = (bool) => {
+      showText.value = bool
       defaultSetting.displayValue = showText.value
     }
 
@@ -120,22 +119,7 @@ export default {
     select(v-model='selectCode' )
       option(selected value='CODE128' disabled) Please Select
       option(v-for='item in formatCode' :value='item') {{ Object.values(item)[0].option }}
-      //- option(value="CODE128" ) CODE128 auto
-      //- option(value="CODE128A") CODE128 A
-      //- option(value="CODE128B") CODE128 B
-      //- option(value="CODE128C") CODE128 C
-      //- option(value="EAN13") EAN13
-      //- option(value="EAN8") EAN8
-      //- option(value="UPC") UPC
-      //- option(value="CODE39") CODE39
-      //- option(value="ITF14") ITF14
-      //- option(value="ITF") ITF
-      //- option(value="MSI") MSI
-      //- option(value="MSI10") MSI10
-      //- option(value="MSI11") MSI11
-      //- option(value="MSI1010") MSI1010
-      //- option(value="MSI1110") MSI1110
-      //- option(value="pharmacode") Pharmacode
+
   .bar-width.flex
     h3 Bar Width 
     input(type='range' class='' min="1" max="4" v-model='barWidth' @input='changeBarWidth')
@@ -156,7 +140,7 @@ export default {
     input(type='color' v-model='bgckgroundColor' @input='changeBgckgroundColor' )
   .show-text.flex.items-center
     h3 Show text 
-    ToggleSwitch(:bool='showText' @CallBack='changeShowText')
+    ToggleSwitch( @CallBack='changeShowText' )
     h3(v-show='showText') Show
     h3(v-show='!showText') Hide
 </template>

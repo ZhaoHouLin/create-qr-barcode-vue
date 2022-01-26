@@ -1,28 +1,17 @@
 <script>
-import { onMounted, reactive, watch } from "vue"
+import { watch, ref } from "vue"
 export default {
 
-  props: {
-    bool: {
-      type: Boolean,
-      default: true
-    }
-  },
-  emits: {
-    CallBack: (bool)=> {
-      return bool = !bool.value
-    }
-  },
-  setup(props,{emit}) {
-    const bool = props.bool
+  emits:['CallBack'],
 
-    const checked = () => {
-      emit('CallBack',bool)
-    }
+  setup(props,{emit}) {
+    const checked = ref(true)
+  
+    watch(checked,(val)=> {
+      emit('CallBack',val)
+    })
 
     return {
-      props,
-      bool,
       checked
     }
   },
@@ -31,7 +20,7 @@ export default {
 
 <template lang="pug">
 label.switch
-  input(type="checkbox" :checked='props.bool' @click="checked")
+  input(type="checkbox" v-model="checked")
   span.slider.round
 </template>
 
