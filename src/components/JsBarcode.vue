@@ -15,6 +15,7 @@ export default {
     const barHeight = ref(50)
     const barMargin = ref(20)
     const showText = ref(true)
+    const fontSize = ref(20)
 
     const radioPicked = ref('center')
     const alignRadio = ref([
@@ -54,7 +55,7 @@ export default {
       textAlign: "center",
       textPosition: "bottom",
       textMargin: "2",
-      fontSize: 20,
+      fontSize: fontSize.value,
       background: "#fff",
       lineColor: "#000000",
       margin: barMargin.value
@@ -84,6 +85,9 @@ export default {
     const changeShowText = (bool) => {
       showText.value = bool
       defaultSetting.displayValue = showText.value
+    }
+    const changeFontSize = () => {
+      defaultSetting.fontSize = fontSize.value
     }
 
     onMounted(()=> {
@@ -117,7 +121,8 @@ export default {
       selectCode,
       barMargin, changeBarMargin,
       showText, changeShowText,
-      radioPicked,alignRadio
+      radioPicked,alignRadio,
+      fontSize, changeFontSize
     }
   },
 }
@@ -161,6 +166,10 @@ export default {
     .radio.flex.items-center(v-for="item in alignRadio")
       input(type="radio" :id='item.id' :value='item.val' v-model='radioPicked')
       label(:for='item.id') {{item.id}}
+  .font-size.flex.items-center
+    h3 Font Size
+    input(type="range" min="8" max="36" v-model='fontSize' @input="changeFontSize")
+    h3 {{fontSize}}
 </template>
 
 <style lang="stylus" scoped>
