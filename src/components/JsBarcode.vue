@@ -135,54 +135,104 @@ export default {
 
 
 <template lang="pug">
-.js-barcode.flex.justify-center.items-center.flex-col.m-2
-  canvas#barcode.border
-  .bar-code-format
-    input.text-center.border(v-model='text' @input='createBarcode')
-    select(v-model='selectCode' )
+.js-barcode.flex.justify-center.items-center.flex-col
+  canvas#barcode.border.mb-4
+  .bar-code-format.w-full.flex.justify-between
+    input( class='text-center border ' v-model='text' @input='createBarcode')
+    select.border(v-model='selectCode' )
       option(selected value='CODE128' disabled) Please Select
       option(v-for='item in formatCode' :value='item') {{ Object.values(item)[0].option }}
 
-  .bar-width.flex
+  .bar-width
     h3 Bar Width 
     input(type='range' class='' min="1" max="4" v-model='barWidth' @input='changeBarWidth')
-    h3 {{barWidth}}
-  .bar-height.flex
+    h4 {{barWidth}}
+  .bar-height
     h3 Bar Height 
     input(type='range' class='' min="20" max="100" v-model='barHeight' @input='changeBarHeight')
-    h3 {{barHeight}}
-  .bar-margin.flex
+    h4 {{barHeight}}
+  .bar-margin
     h3 Bar Margin 
     input(type='range' class='' min="0" max="30" step="1"  v-model='barMargin' @input='changeBarMargin')
-    h3 {{barMargin}}
-  .line-color.flex.items-center.justify-center
+    h4 {{barMargin}}
+  .line-color
     h3 Line Color
     input(type='color' v-model='lineColor' @input='changeLineColor' )
-    input( class='w-20' v-model='lineColor' @input='changeLineColor' )
-  .bgckground-color.flex.items-center.justify-center
+    input( class='w-20 border text-center' v-model='lineColor' @input='changeLineColor')
+  .bgckground-color
     h3 Bgckground
     input(type='color' v-model='bgckgroundColor' @input='changeBgckgroundColor' )
-    input( class='w-20' v-model='bgckgroundColor' @input='changeBgckgroundColor')
-  .show-text.flex.items-center
-    h3 Show text 
+    input( class='w-20 border text-center' v-model='bgckgroundColor' @input='changeBgckgroundColor')
+  .show-text.flex.items-center.justify-between
+    h3 Show text
     ToggleSwitch( @CallBack='changeShowText' )
-    h3(v-show='showText') Show
-    h3(v-show='!showText') Hide
-  .text-align.flex.items-center
-    h3 Text Align 
-    .radio.flex.items-center(v-for="item in alignRadio")
-      input(type="radio" :id='item.id' :value='item.val' v-model='radioPicked')
-      label(:for='item.id') {{item.id}}
-  .font-size.flex.items-center
-    h3 Font Size
-    input(type="range" min="8" max="36" v-model='fontSize' @input="changeFontSize")
-    h3 {{fontSize}}
-  .text-margin.flex.items-center
-    h3 Text Margin
-    input(type="range" min="-20" max="20" v-model='textMargin' @input="changeTextMargin")
-    h3 {{textMargin}}  
+    h4(v-show='showText') Show
+    h4(v-show='!showText') Hide
+  .text-options(v-show='showText')
+    .text-align.flex.items-center
+      h3 Text Align 
+      .radio.flex.items-baseline(v-for="item in alignRadio")
+        input(type="radio" :id='item.id' :value='item.val' v-model='radioPicked')
+        label(:for='item.id') {{item.id}}
+    .font-size.flex.items-center
+      h3 Font Size
+      input(type="range" min="8" max="36" v-model='fontSize' @input="changeFontSize")
+      h4 {{fontSize}}
+    .text-margin.flex.items-center
+      h3 Text Margin
+      input(type="range" min="-20" max="20" v-model='textMargin' @input="changeTextMargin")
+      h4 {{textMargin}}  
+
 </template>
 
 <style lang="stylus" scoped>
+.bar-width,.bar-height,.bar-margin,.line-color,.bgckground-color
+  width 100%
+  margin-bottom 0.2rem
+  display flex
+  justify-content space-between
+  align-items center
+  h3,h4
+    width 30%
+  input
+    width 40%  
+  :nth-child(2)
+    margin 0 0.5rem
+  :nth-child(3)
+    text-align right
+
+.line-color,.bgckground-color
+  display flex
+  justify-content space-between
+  align-items center
+  :nth-child(1)
+    width 30%
+  :nth-child(2)
+    width 40%
+  :nth-child(3)
+    width 30%
+
+.text-options
+  width 100%
+  display flex
+  justify-content center
+  align-items center
+  flex-direction column
+  .text-align,.font-size,.text-margin
+    width 100%
+    display flex
+    justify-content space-between
+    align-items center
+  .font-size,.text-margin
+    :nth-child(1)
+      width 30%
+    :nth-child(2)
+      margin 0 0.5rem
+      width 40%
+    :nth-child(3)
+      width 30%
+      text-align right
+
+    
 
 </style>

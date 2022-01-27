@@ -77,17 +77,20 @@ export default {
 <template lang="pug">
 .qrcode
   #container.border(ref='content')
-  input(v-model='url' @input='createQRCode')
-  .qr-color
-    h3 QR Color
-    input(type='color' v-model='codeColor' @input='changeCodeColor' )
-  .bgckground-color
-    h3 Bgckground
-    input(type='color' v-model='bgckgroundColor' @input='changeBgckgroundColor' )
-  .qr-margin.flex 
+  input( class='w-3/4 border mb-2' v-model='url' @input='createQRCode')
+  .qr-margin.flex.mb-2
     h3 QR Margin
     input(type="range" min="0" max="6" step="1" v-model='qrMargin' @input='changeQRMargin' )
-
+    h4 {{qrMargin}}
+  .qr-color.mb-2
+    h3 QR Color
+    input(type='color' v-model='codeColor' @input='changeCodeColor' )
+    input( class='w-20 border text-right' v-model='codeColor' )
+  .bgckground-color.mb-2
+    h3 Bgckground
+    input(type='color' v-model='bgckgroundColor' @input='changeBgckgroundColor' )
+    input( class='w-20 border text-right' v-model='bgckgroundColor' )
+  
 </template>
 
 <style lang="stylus" scoped>
@@ -101,8 +104,32 @@ export default {
   // border 1px solid #000  
   margin 8px
 
-.qr-color,.bgckground-color
+.qr-margin
+  width 100%
   display flex
-  // border 1px solid #000  
+  justify-content space-between
+  align-items center
+  :nth-child(1)
+    width 30%
+  :nth-child(2)
+    width 40%
+    margin 0 0.5rem
+  :nth-child(3)
+    width 30%
+    text-align right
+
+.qr-color,.bgckground-color
+  width 100%
+  display flex
+  justify-content space-between
+  align-items center
+  :nth-child(1)
+    width 30%
+  :nth-child(2)
+    width 40%
+    margin 0 0.5rem
+  :nth-child(3)
+    width 30%
+
 
 </style>

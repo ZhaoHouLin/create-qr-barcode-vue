@@ -16,7 +16,7 @@ export default {
 </script>
 
 <template lang="pug">
-.card
+.card.shadow-2xl.p-4.rounded-2xl
   JsBarcode  
   QRCode
 </template>
@@ -37,10 +37,8 @@ export default {
   flex-direction column
 
 .card
-  padding 12px
-  // height 80vh
-  box-shadow 0.2rem 0.2rem 0.5rem 0.2rem #222
-  border-radius 12px
   display flex
   justify-content center
+  flex-direction column
+  background-color #fff
 </style>
