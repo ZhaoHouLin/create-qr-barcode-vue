@@ -1,6 +1,5 @@
 // 下載Canvas元素的圖片
 const downloadPng = (id,text) => {
-  console.log(id);
   // 通過選擇器獲取canvas元素
   const canvas = document.querySelector(id)
   // 使用toDataURL方法將影象轉換被base64編碼的URL字串
