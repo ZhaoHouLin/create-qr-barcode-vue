@@ -53,7 +53,6 @@ export default {
 
 
     onMounted(()=> {
-      console.log(content.value);
       QRCode.toCanvas(content.value,url.value,defaultSetting,  (err,canvas) => {
         if (err) throw err
       })   
