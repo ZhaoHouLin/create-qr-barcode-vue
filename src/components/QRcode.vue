@@ -1,6 +1,7 @@
 <script>
 import QRCode from "qrcode"
 import { onMounted, reactive, ref, watch } from '@vue/runtime-core'
+import downloadPng from "../api/downloadCanvas"
 export default {
   setup() {
 
@@ -31,10 +32,8 @@ export default {
           console.error(err)
         })
 
-      QRCode.toCanvas(url.value, defaultSetting,  (err,canvas) => {
+      QRCode.toCanvas(content.value,url.value, defaultSetting,  (err,canvas) => {
         if (err) throw err
-        content.value.innerHTML = ""
-        content.value.appendChild(canvas)
       })  
     }
 
@@ -54,10 +53,9 @@ export default {
 
 
     onMounted(()=> {
-      QRCode.toCanvas(url.value, defaultSetting,  (err,canvas) => {
+      console.log(content.value);
+      QRCode.toCanvas(content.value,url.value,defaultSetting,  (err,canvas) => {
         if (err) throw err
-        content.value.innerHTML = ""
-        content.value.appendChild(canvas)
       })   
     })
 
@@ -67,7 +65,8 @@ export default {
       url,
       codeColor, changeCodeColor,
       bgckgroundColor, changeBgckgroundColor,
-      qrMargin, changeQRMargin
+      qrMargin, changeQRMargin,
+      downloadPng
     }
   },
 }
@@ -76,7 +75,7 @@ export default {
 
 <template lang="pug">
 .qrcode
-  #container.border(ref='content')
+  canvas#qrcode.border(ref='content' @click='downloadPng("#qrcode","QRcode")')
   input( class='w-3/4 border mb-2' v-model='url' @input='createQRCode')
   .qr-margin.flex.mb-2
     h3 QR Margin
