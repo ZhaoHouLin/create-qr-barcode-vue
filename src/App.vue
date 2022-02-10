@@ -19,9 +19,9 @@ export default {
 
 <template lang="pug">
 
-.card.shadow-2xl.p-4.rounded-2xl
-  JsBarcode  
-  QRCode
+//- .card.shadow-2xl.p-4.rounded-2xl
+//-   JsBarcode  
+//-   QRCode
   
 .scanner-card.shadow-2xl.p-4.rounded-2xl
   Scanner
