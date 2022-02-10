@@ -4,12 +4,15 @@ import { Html5QrcodeScanner } from "html5-qrcode"
 // To use Html5Qrcode (more info below)
 import { Html5Qrcode } from "html5-qrcode"
 import { onMounted, reactive, ref } from '@vue/runtime-core'
-
+import ToggleSwitch from "./ToggleSwitch.vue"
 export default {
+  components: {
+    ToggleSwitch
+  },
   setup() {
     
     const html5QrCode = ref()
-    const bool = ref(false)
+    const open = ref(true)
     const codeText = ref()
     const codeResult = reactive({
       text: '',
@@ -40,7 +43,7 @@ export default {
     const onScanFailure = (error) => {
       // handle scan failure, usually better to ignore and keep scanning.
       // for example:
-      // console.warn(`Code scan error = ${error}`);
+      console.warn(`Code scan error = ${error}`);
     }
 
     const scanner = () => {
@@ -54,8 +57,7 @@ export default {
       codeResult.text = decodedResult.result.text
       codeResult.format = decodedResult.result.format.format
       codeResult.formatName = decodedResult.result.format.formatName
-      console.log(decodedResult,codeResult);
-      // console.log(codeText.value,codeResult);
+      // console.log(decodedResult,codeResult);
     };
 
     const scannerSetting = () => {
@@ -63,12 +65,12 @@ export default {
       start()
     }
 
-    const start = () => {
-      
+    const start = async () => {
+      open.value = true
       // If you want to prefer front camera
       // html5QrCode.start({ facingMode: "user" }, scannerConfig, codeSuccessCallback);
       // If you want to prefer back camera
-      html5QrCode.value.start({ facingMode: "environment" }, scannerConfig, codeSuccessCallback);
+      await html5QrCode.value.start({ facingMode: "environment" }, scannerConfig, codeSuccessCallback);
       // Select front camera or fail with `OverconstrainedError`.
       // html5QrCode.start({ facingMode: { exact: "user"} }, scannerConfig, codeSuccessCallback);
 
@@ -76,8 +78,9 @@ export default {
       // html5QrCode.start({ facingMode: { exact: "environment"} }, scannerConfig, codeSuccessCallback);
     }
     
-    const stop = () => {
-      html5QrCode.value.stop().then(() => {
+    const stop = async () => {
+      open.value = false
+      await html5QrCode.value.stop().then(() => {
         // QR Code scanning is stopped.
       }).catch((err) => {
         // Stop failed, handle it.
@@ -96,7 +99,6 @@ export default {
       .then((decodedText) => {
         // success, use decodedText
         codeResult.text = decodedText
-        console.log(codeResult.text);
       })
       .catch(err => {
         // failure, handle it.
@@ -105,9 +107,9 @@ export default {
       
     }
 
-    const switchScanfile = () => {
-      bool.value = !bool.value
-      bool.value ? stop() : start()
+    const switchScanfile = (bool) => {
+      open.value = bool
+      open.value ? start() : stop() 
     }
 
     onMounted(() => {
@@ -123,7 +125,8 @@ export default {
       stop,
       scanFile,
       switchScanfile,
-      bool
+      // bool,
+      open
     }
   },
 }
@@ -131,30 +134,49 @@ export default {
 
 <template lang="pug">
 .scanner
-  #reader
+  #reader.mb-2
   .info
-    .result.flex.mb-2
-      h3 result: 
-      h4 {{codeResult.text}}
-    .code-type.flex.mb-2
-      h3 code type: 
-      h4.border {{codeResult.formatName}}
-
-  input#qr-input-file(type="file" accept="image/*" @change="scanFile($event)")
-  //- button(@click='start') start
-  button(@click='switchScanfile') {{bool?'Scan code':'Scan file'}}
+    .result.flex.mb-2.justify-between
+      //- h3 result
+      a(:href="codeResult.text" target="_blank") result (link)
+      input(:value="codeResult.text" :href="codeResult.text" target="_blank" class="border-b-2 focus:border-b-blue-400 ")
+      //- a.border-b-2(:href="codeResult.text" target="_blank") {{codeResult.text}}
+    .code-type.flex.mb-2.justify-between
+      h3 code type
+      //- input.border(:value="codeResult.formatName")
+      p.border-b-2 {{codeResult.formatName}}
+  .switch
+    .text.flex.justify-between.items-center
+      ToggleSwitch( @CallBack='switchScanfile' )
+      h3 {{open?'Scan code':'Scan file'}}
+  //- input#qr-input-file(type="file" accept="image/*" @change="scanFile($event)" v-if="!open")
+  input(type="file" accept="image/*" @change="scanFile($event)" v-if="!open" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-600 hover:file:bg-blue-100")
 </template>
 
 <style lang="stylus" scoped>
 .scanner
-  // width 100vw
   display flex
   justify-content center
   align-items center
   flex-direction column
 
 
-  
+.info
+  width 300px
+  .result,.code-type
+    width 100%
+    :nth-child(1)
+      text-align center
+      width 30%
+    :nth-child(2)
+      text-align center
+      width 70%
+      margin-left 1rem
+    // :nth-child(3)
+    //   text-align center
+    //   width 60%
 
+.result input
+  outline none
 
 </style>
