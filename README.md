@@ -6,7 +6,6 @@
 
 #### [Demo 網頁](https://zhaohoulin.github.io/create-qr-barcode-vue/?openExternalBrowser=1)
 <img src="Demo/createCode.jpg"  width="40%" >
-<br>
 <img src="Demo/scanner.jpg"  width="40%" >
 <img src="Demo/scanFile.jpg"  width="40%" >
 
