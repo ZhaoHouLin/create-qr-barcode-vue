@@ -125,7 +125,6 @@ export default {
       stop,
       scanFile,
       switchScanfile,
-      // bool,
       open
     }
   },
@@ -133,7 +132,7 @@ export default {
 </script>
 
 <template lang="pug">
-.scanner
+.scanner-card.shadow-2xl.p-4.rounded-2xl
   #reader.mb-2
   .info
     .result.flex.mb-2.justify-between
@@ -154,15 +153,15 @@ export default {
 </template>
 
 <style lang="stylus" scoped>
-.scanner
+.scanner-card
   display flex
   justify-content center
   align-items center
   flex-direction column
-
+  background-color #fff
 
 .info
-  width 300px
+  // width 300px
   .result,.code-type
     width 100%
     :nth-child(1)

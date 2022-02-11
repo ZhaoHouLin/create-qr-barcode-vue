@@ -3,11 +3,24 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 const routes = [
   {
     path: '/',
-    component: () => import('../components/'),
+    component: () => import('../components/CreateCode.vue'),
     meta: {
-      title: ''
+      title: 'CreateCode'
+    }
+  },{
+    path: '/CreateCode',
+    component: () => import('../components/CreateCode.vue'),
+    meta: {
+      title: 'CreateCode'
     }
   },
+  {
+    path: '/Scanner',
+    component: () => import('../components/Scanner.vue'),
+    meta: {
+      title: 'Scanner'
+    }
+  }
   
 ]
 
