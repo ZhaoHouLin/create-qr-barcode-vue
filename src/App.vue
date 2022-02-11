@@ -18,13 +18,13 @@ export default {
 </script>
 
 <template lang="pug">
-
-//- .card.shadow-2xl.p-4.rounded-2xl
-//-   JsBarcode  
-//-   QRCode
-  
-.scanner-card.shadow-2xl.p-4.rounded-2xl
-  Scanner
+.cards
+  .card.shadow-2xl.p-4.rounded-2xl
+    JsBarcode  
+    QRCode
+    
+  .scanner-card.shadow-2xl.p-4.rounded-2xl
+    Scanner
 
 </template>
 
@@ -43,9 +43,13 @@ export default {
   align-items center
   flex-direction column
 
+.cards
+  display flex
+
 .card,.scanner-card
   display flex
   justify-content center
   flex-direction column
   background-color #fff
+
 </style>
