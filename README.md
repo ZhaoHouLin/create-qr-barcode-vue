@@ -1,10 +1,14 @@
-# Bar & QR Code 產生器
+# Bar & QR Code 產生器 含掃描功能
 使用以下套件:
 - [JsBarcode](https://github.com/lindell/JsBarcode) 
 - [node-qrcode](https://github.com/soldair/node-qrcode)
+- [html5-qrcode](https://github.com/mebjas/html5-qrcode)
 
 #### [Demo 網頁](https://zhaohoulin.github.io/create-qr-barcode-vue/?openExternalBrowser=1)
-<img src="Demo/bar&qr Code.jpg"  width="40%" >
+<img src="Demo/createCode.jpg"  width="40%" >
+<br>
+<img src="Demo/scanner.jpg"  width="40%" >
+<img src="Demo/scanFile.jpg"  width="40%" >
 
 # Vue 3 + Vite
 
